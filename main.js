@@ -109,7 +109,7 @@ client.on('message', message =>{
 
   
 
-client.login('OTA5NDg3OTA0MDA5NjUwMTg3.YZFAnQ.G7GlHpYhnt9SKmOgOdNojx-Qauo');
+client.login('sexy_token');
 
 
 client.on('presenceUpdate', (oldMember,newPresence) => {
