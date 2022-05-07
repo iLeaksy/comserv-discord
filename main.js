@@ -1,17 +1,20 @@
+// Initial version: 1.0
+// Idea given by Kralle, continued by Leaksy.
+
 const Discord = require('discord.js');
 
 require('discord-reply');
 
 const client = new Discord.Client();
 
+
 fs = require('fs');
 var name = 'markeri_info.json';
 var jsonData = JSON.parse(fs.readFileSync(name).toString());
 
+client.login('bottoken');
 
 const prefix = '!';
-
- 
 
 client.on('message', message =>{
     if(!message.content.startsWith(prefix) || message.author.bot) return;
@@ -20,7 +23,7 @@ client.on('message', message =>{
     const command = args.shift().toLowerCase();
     
     
-    if (command == 'kazni'){  
+    if (command == 'cs'){  
         if(message.member.roles.cache.find(r => r.id === "929180242390696026")) {
             let role = message.member.guild.roles.cache.find(role => role.id === "927987216330915871");
             let member = message.mentions.members.first(); 
@@ -36,7 +39,7 @@ client.on('message', message =>{
                 jsonData[member.user.id] = parseInt(args[1]);
                 fs.writeFileSync(name, JSON.stringify(jsonData));
             }
-            message.lineReply(" 🧹 Korisnik  **" + member.user.username + "** je poslat na  **" + args[1] + "** marker/a!");
+            message.lineReply(" 🧹 User **" + member.user.username + "** has been sent to  **" + args[1] + "** day's in community service!");
         }else{
             message.lineReply(" 🧹 Nemate permisije!");
         }
@@ -44,7 +47,7 @@ client.on('message', message =>{
     }
 
      
-    if (command == 'oslobodi'){  
+    if (command == 'csfree'){  
         if(message.member.roles.cache.find(r => r.id === "929180242390696026")) {
             let role = message.member.guild.roles.cache.find(role => role.id === "927987216330915871");
             let member = message.mentions.members.first(); 
@@ -52,9 +55,9 @@ client.on('message', message =>{
               member.roles.remove(role);
               jsonData[member.id] == 0;
               fs.writeFileSync(name, JSON.stringify(jsonData));
-              message.lineReply(" 🧹 Korisnik  **" + member.user.username + "** je skinut sa markera!");
+              message.lineReply(" 🧹 User **" + member.user.username + "** has been set free!");
             } else {
-             message.lineReply(" 🧹 Korisnik  **" + member.user.username + "** nije na markerima!");
+             message.lineReply(" 🧹 User **" + member.user.username + "** is not in community service!");
             }
         } else { 
             message.lineReply(" 🧹 Nemate permisije!");
@@ -62,7 +65,7 @@ client.on('message', message =>{
 
     }
 
-    if (command == 'ocisti')
+    if (command == 'clean')
     {
         let role = message.member.guild.roles.cache.find(role => role.id === "927987216330915871");
         let member = message.author;
@@ -74,44 +77,27 @@ client.on('message', message =>{
             
             if(jsonData[member.id] <= 0)
             {
-                message.lineReply(" 🧹 Ocistili ste sve markere."); 
+                message.lineReply(" 🧹 You will be set free soon."); 
                 message.guild.members.cache.get(message.author.id).roles.remove(role);
             }
             else
             {
-                message.lineReply(" 🧹 Preostalo vam je jos  **" + jsonData[member.id] + "** marker/a."); 
+                message.lineReply(" 🧹 You have  **" + jsonData[member.id] + "** markers left."); 
             }
         }
         else    
-            message.lineReply(" 🧹 Nemate markere za ocistiti!");
+            message.lineReply(" 🧹 You have no markers left");
     }
 
-   // ban if user is playing leage of legends
-
-    if (command == 'cigan'){
-            // varijable i toj takoj
-            let member = message.author;
-            var game1 = member.presence.activities[1];
-            var game2 = member.presence.activities[2];
-            // prints
-           // message.lineReply("Game Playing - **" + game1 + "** Time In Game **" + game2 + "**");
-            if (member.presence.activities[1] == 'ISEE') {
-                message.lineReply("Cigan igra : **league of legends**");
-            }
-            else {
-                message.lineReply("Cigan ne igra: **league of legends**! ");
-            }
-
-
-    }
     
 });
 
   
 
-client.login('sexy_token');
 
 
+// Checking for user presence - Will be needed for further bot development.
+/* 
 client.on('presenceUpdate', (oldMember,newPresence) => {
     if (newPresence.activities[1] == 'ISEE' || oldMember.activities[1] == 'ISEE') {
         const retardiran = client.users.cache.get(newPresence.user.id);
@@ -125,4 +111,4 @@ client.on('presenceUpdate', (oldMember,newPresence) => {
         console.log('[USER-ID] ' + retardiran + ' started playing ' + newPresence.activities[1] + ' , before that he was playing ' + oldMember.activities[1]);
     }
 });
- 
+ */
