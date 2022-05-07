@@ -1,13 +1,13 @@
-# kurvanator
-kurvanator v1.0.0
+# Jenkins - Version 1.0
+
+### Simple JavaScript made Discord bot, with the option to send users to community service.
+
+**Commands** :
+- > /cs @Username#0420 100 - *Sends the selected user to 100 days in community service*
+- > /csfree @Username#0420 - *Sets the selected user free*
+- > /clear - *A user that is sent to community service has to use this command in a certain channel X ammount of times to get free*
 
 
-initial release of the kurvanator
-
-it detects if retards are playing league of legends, then it bans them
-super easy system
-#fuckleaguyeoflegends
 
 
-with love
-leaksy#6033
+*Made with ❤️ - leaksy#6033*
