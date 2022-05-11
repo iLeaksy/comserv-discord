@@ -12,7 +12,6 @@ fs = require('fs');
 var name = 'markeri_info.json';
 var jsonData = JSON.parse(fs.readFileSync(name).toString());
 
-client.login('bottoken');
 
 const prefix = '!';
 
