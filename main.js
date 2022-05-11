@@ -41,7 +41,7 @@ client.on('message', message =>{
             }
             message.lineReply(" 🧹 User **" + member.user.username + "** has been sent to  **" + args[1] + "** day's in community service!");
         }else{
-            message.lineReply(" 🧹 Nemate permisije!");
+            message.lineReply(" 🧹 No Permissions");
         }
 
     }
@@ -60,7 +60,7 @@ client.on('message', message =>{
              message.lineReply(" 🧹 User **" + member.user.username + "** is not in community service!");
             }
         } else { 
-            message.lineReply(" 🧹 Nemate permisije!");
+            message.lineReply(" 🧹 No Permissions");
         }
 
     }
@@ -93,22 +93,39 @@ client.on('message', message =>{
 });
 
   
+// Big thanks to m-et for the code
 
+client.on('presenceUpdate', (oldMember, newMember) => {
+    const guild = newMember.guild;
+    member = newMember;
+    if (newMember.user.bot) return;
+    
+    activityLength = newMember.member.presence.activities.length;
 
+    //check to see if the user has an activities, and if so, how many
+    if (activityLength >0 ){
+        console.log("member has " + activityLength + " activities");
 
-// Checking for user presence - Will be needed for further bot development.
-/* 
-client.on('presenceUpdate', (oldMember,newPresence) => {
-    if (newPresence.activities[1] == 'ISEE' || oldMember.activities[1] == 'ISEE') {
-        const retardiran = client.users.cache.get(newPresence.user.id);
-        const retardalert = client.channels.cache.get('937715399091445860')
-        console.log('user with id  ' + retardiran + ' is playing LEAGUE OF LEGENDS');
-        retardiran.send('League of Legends - Detected. If you don\'t turn off your game, you will be banned from the server. ');
-        retardalert.send(' <@${retardiran}>  upali leage of legends'); 
-         
+        for (let i = 0; i < activityLength; i++) {         
+          
+        //Debugging messages to the log
+        console.log("Activity in position " + i + " is " + newMember.member.presence.activities[i].name.toLowerCase());
+        //console.log("now in lower case " + newMember.member.presence.activities[0].name.toLowerCase());
+        //If you want to ban players of any other game than LOL, changer where it says league of legends to any other lowercase name of a game
+        if (newMember.member.presence.activities[i].name.toLowerCase() == "league of legends") { // Started playing.
+            console.log(`<a:banned:942166115373678602> ${newMember.user.tag} has been banned for playing LOL <a:banned:942166115373678602>`);
+            try{
+                guild.members.ban(`${newMember.user.id}`, {reason: 'Playing League Of Legends'}).catch((err) => {
+                console.error(err);
+                var x = err.message;});
+                break;
+            }
+            catch(err){    
+            }
+        }
+    }
     } else {
-        if(newPresence.activities[1] ~= nil  || oldMember.activities[1] ~= nil) 
-        console.log('[USER-ID] ' + retardiran + ' started playing ' + newPresence.activities[1] + ' , before that he was playing ' + oldMember.activities[1]);
+        console.log("member has no activities");
     }
 });
- */
+} 
