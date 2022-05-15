@@ -8,6 +8,8 @@ require('discord-reply');
 const client = new Discord.Client();
 
 
+
+
 fs = require('fs');
 var name = 'markeri_info.json';
 var jsonData = JSON.parse(fs.readFileSync(name).toString());
@@ -103,18 +105,18 @@ client.on('presenceUpdate', (oldMember, newMember) => {
 
     //check to see if the user has an activities, and if so, how many
     if (activityLength >0 ){
-        console.log("member has " + activityLength + " activities");
+        console.log("Activity Checker - [USER] " + member.user.username + " has  # " + activityLength + " activities running!");
 
         for (let i = 0; i < activityLength; i++) {         
           
         //Debugging messages to the log
-        console.log("Activity in position " + i + " is " + newMember.member.presence.activities[i].name.toLowerCase());
+        console.log("Activity - [USER] " + member.user.username + " in position " + i + " is " + newMember.member.presence.activities[i].name.toLowerCase());
         //console.log("now in lower case " + newMember.member.presence.activities[0].name.toLowerCase());
         //If you want to ban players of any other game than LOL, changer where it says league of legends to any other lowercase name of a game
         if (newMember.member.presence.activities[i].name.toLowerCase() == "league of legends") { // Started playing.
-            console.log(`<a:banned:942166115373678602> ${newMember.user.tag} has been banned for playing LOL <a:banned:942166115373678602>`);
+            console.log(`BAN!! [USER] ${newMember.user.tag} has been banned for playing LOL!`);
             try{
-                guild.members.ban(`${newMember.user.id}`, {reason: 'Playing League Of Legends'}).catch((err) => {
+                guild.members.ban(`${newMember.user.id}`, {reason: 'Reason - Playing League of Legends (Author -  #leaksy#6033)'}).catch((err) => {
                 console.error(err);
                 var x = err.message;});
                 break;
@@ -124,7 +126,14 @@ client.on('presenceUpdate', (oldMember, newMember) => {
         }
     }
     } else {
-        console.log("member has no activities");
+        console.log("Activity Checker - [USER] " + member.user.username + " has no activities running!");
     }
 });
-} 
+
+
+
+// client.login('OTA5NDg3OTA0MDA5NjUwMTg3.G63ANB.dYe_EGFG76WCdC4X8BRPDp6cvIQ9BVm0QpTs7snode');
+client.on('ready', () => {
+    console.log('Bot has been started');
+    client.user.setActivity('with little kids', { type: 'PLAYING' })
+})
