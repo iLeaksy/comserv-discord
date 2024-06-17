@@ -132,7 +132,6 @@ client.on('presenceUpdate', (oldMember, newMember) => {
 
 
 
-// client.login('OTA5NDg3OTA0MDA5NjUwMTg3.G63ANB.dYe_EGFG76WCdC4X8BRPDp6cvIQ9BVm0QpTs7snode');
 client.on('ready', () => {
     console.log('Bot has been started');
     client.user.setActivity('with little kids', { type: 'PLAYING' })
